@@ -37,7 +37,7 @@ class CourseFactory extends Factory
             'description' => fake()->paragraph(3),
             'instructor' => 'Chef ' . fake()->firstName() . ' ' . fake()->lastName(),
             'image_url' => fake()->randomElement($courseImages),
-            'price' => fake()->numberBetween(29, 199),
+            'price' => fake()->numberBetween(3800, 26000),
             'max_students' => fake()->numberBetween(15, 50),
             'status' => fake()->randomElement(['active', 'inactive']),
             'start_date' => fake()->dateTimeBetween('now', '+30 days'),

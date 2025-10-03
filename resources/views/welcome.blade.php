@@ -292,7 +292,7 @@
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     @if($course->price > 0)
-                                        <span class="text-lg font-bold text-gray-900">${{ number_format($course->price, 0) }}</span>
+                                        <span class="text-lg font-bold text-gray-900">Ksh {{ number_format($course->price, 0) }}</span>
                                     @endif
                                     @if(Route::has('student.register'))
                                         <a href="{{ route('student.register') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">

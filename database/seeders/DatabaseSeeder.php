@@ -78,7 +78,7 @@ class DatabaseSeeder extends Seeder
                 'description' => $this->getCookingDescription($courseData['name']),
                 'image_url' => $courseData['image'],
                 'instructor' => $this->getRandomInstructor(),
-                'price' => rand(49, 299),
+                'price' => rand(6500, 39000),
                 'max_students' => rand(20, 100),
                 'status' => 'active',
                 'start_date' => now()->addDays(rand(1, 30)),

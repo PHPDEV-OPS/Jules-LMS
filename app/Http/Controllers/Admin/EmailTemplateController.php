@@ -115,7 +115,7 @@ class EmailTemplateController extends Controller
             'completion_date' => now()->format('F j, Y'),
             'certificate_url' => url('/certificates/1'),
             'certificate_number' => 'CERT-2024-001',
-            'amount' => '$99.00',
+            'amount' => 'Ksh 12,900',
             'transaction_id' => 'TXN123456'
         ];
 

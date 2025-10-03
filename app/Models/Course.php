@@ -108,7 +108,7 @@ class Course extends Model
 
     public function getFormattedPriceAttribute()
     {
-        return '$' . number_format($this->price, 2);
+        return 'Ksh ' . number_format($this->price, 0);
     }
 
     public function getDurationAttribute()

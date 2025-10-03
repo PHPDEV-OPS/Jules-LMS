@@ -158,7 +158,7 @@
                                 <div class="absolute top-3 right-3">
                                     <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-white text-gray-800">
                                         @if($course->price && $course->price > 0)
-                                            ${{ number_format($course->price) }}
+                                            Ksh {{ number_format($course->price) }}
                                         @else
                                             Free
                                         @endif
