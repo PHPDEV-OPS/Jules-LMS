@@ -1,6 +1,6 @@
 # Learning Management System (LMS)
 
-A comprehensive Learning Management System built with Laravel 11, featuring course enrollment, student management, assessment tools, and administrative capabilities. This system demonstrates advanced Laravel concepts including migrations, relationships, API resources, events, and comprehensive testing.
+A comprehensive Learning Management System built with Laravel 12, featuring course enrollment, student management, assessment tools and administrative capabilities. This system demonstrates advanced Laravel concepts including migrations, relationships, API resources, events and comprehensive testing.
 
 ## 🎯 System Overview
 
@@ -12,13 +12,9 @@ This LMS implements a complete course enrollment system with the following core 
 - **Certificates**: Course completion certificates
 - **Forums**: Student discussion boards
 
-All currency is displayed in **Kenyan Shillings (Ksh)** throughout the application.
-
 ---
 
-## 📚 Section B - Practical Implementation Details
-
-### 5. Migration & Model Implementation (8 marks)
+### A. Migration & Model Implementation 
 
 #### Students Migration
 ```php
@@ -75,7 +71,7 @@ class Student extends Authenticatable
 }
 ```
 
-### 6. Form Request Validation (6 marks)
+### B. Form Request Validation
 
 #### StoreCourseRequest Implementation
 ```php
@@ -119,9 +115,9 @@ public function store(StoreCourseRequest $request)
 }
 ```
 
-### 7. Blade Component Implementation (6 marks)
+### C. Blade Component Implementation
 
-**Note**: While the system supports Blade components, the current implementation uses direct Blade templates for student cards rather than separate components. Here's how a student card component would be implemented:
+**Note**:The current implementation uses direct Blade templates for student cards rather than separate components. Here's how a student card component would be implemented:
 
 #### Student Card Component (Example Implementation)
 ```php
@@ -173,7 +169,7 @@ class StudentCard extends Component
 </div>
 ```
 
-### 8. API Resource & Pagination (10 marks)
+### D. API Resource & Pagination
 
 #### StudentResource Implementation
 ```php
@@ -193,7 +189,7 @@ class StudentResource extends JsonResource
 }
 ```
 
-#### Controller with Pagination (10 students per page)
+#### Controller with Pagination
 ```php
 // app/Http/Controllers/Api/StudentController.php
 class StudentController extends Controller
@@ -222,7 +218,7 @@ class StudentController extends Controller
 
 ---
 
-## 🎯 Section C - Full Course Enrollment Feature (50 marks)
+## - Full Course Enrollment Feature
 
 ### Database Schema & Migrations
 
@@ -395,27 +391,6 @@ public function myCourses(Request $request)
     $student->load('courses');
 
     return new StudentResource($student);
-}
-```
-
-### Event Implementation
-
-#### EnrollmentCreated Event
-```php
-// app/Events/EnrollmentCreated.php
-class EnrollmentCreated
-{
-    use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    public $enrollment;
-
-    /**
-     * Create a new event instance.
-     */
-    public function __construct(Enrollment $enrollment)
-    {
-        $this->enrollment = $enrollment;
-    }
 }
 ```
 
@@ -617,11 +592,3 @@ This LMS demonstrates advanced Laravel patterns:
 - **Factory & Seeding**: Comprehensive test data generation
 - **API Resource Collections**: Proper JSON:API formatting
 - **Sanctum Authentication**: Modern token-based security
-
-The system follows Laravel best practices and demonstrates production-ready code quality with comprehensive testing, proper error handling, and scalable architecture patterns.
-
----
-
-## 📄 License
-
-This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
