@@ -1,6 +1,39 @@
 # Laravel Course Enrollment System
 
-# Learning Management System (LMS)
+# Learn```php
+class Student extends Authenticatable
+{
+    use HasFactory, HasApiTokens;
+
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'email',
+        'date_of_birth',
+        'password',
+        'role',
+        'student_id',
+        'bio',
+        'notification_preferences',
+        'privacy_settings',
+    ];
+
+    protected $casts = [
+        'date_of_birth' => 'date',
+        'password' => 'hashed',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    // Required accessor: concatenates first and last names
+    public function getFullNameAttribute(): string
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+}m (LMS)
 
 A comprehensive Learning Management System built with Laravel 11, featuring course enrollment, student management, assessment tools, and administrative capabilities. This system demonstrates advanced Laravel concepts including migrations, relationships, API resources, events, and comprehensive testing.
 
@@ -70,31 +103,26 @@ class Student extends Model
 // app/Http/Requests/StoreCourseRequest.php
 class StoreCourseRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
-        return true; // Add proper authorization logic as needed
+        return true; // Adjust based on your authorization logic
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'course_code' => 'required|string|unique:courses,course_code',
             'course_name' => 'required|string|max:255',
             'credits' => 'required|integer|min:1|max:6',
-            // Additional validation rules for enhanced functionality
-            'description' => 'nullable|string',
-            'instructor' => 'nullable|string|max:255',
-            'price' => 'nullable|numeric|min:0',
-            'category_id' => 'nullable|exists:categories,id'
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'course_code.unique' => 'This course code is already taken.',
             'credits.min' => 'Credits must be at least 1.',
-            'credits.max' => 'Credits cannot exceed 6.'
+            'credits.max' => 'Credits cannot exceed 6.',
         ];
     }
 }
@@ -185,17 +213,14 @@ class StudentCard extends Component
 // app/Http/Resources/StudentResource.php
 class StudentResource extends JsonResource
 {
-    public function toArray($request)
+    public function toArray(Request $request): array
     {
         return [
             'id' => $this->id,
             'full_name' => $this->full_name,
             'email' => $this->email,
-            'date_of_birth' => $this->date_of_birth?->format('Y-m-d'),
+            'date_of_birth' => $this->date_of_birth->format('Y-m-d'),
             'enrolled_courses' => CourseResource::collection($this->whenLoaded('courses')),
-            'enrollment_count' => $this->when($this->courses_count !== null, $this->courses_count),
-            'status' => $this->status,
-            'created_at' => $this->created_at?->toISOString(),
         ];
     }
 }
@@ -311,18 +336,13 @@ class Course extends Model
     public function students()
     {
         return $this->belongsToMany(Student::class, 'enrollments')
-                    ->withPivot('enrolled_on', 'status', 'grade', 'completed_at')
-                    ->withTimestamps();
+            ->withPivot('enrolled_on', 'status')
+            ->withTimestamps();
     }
 
     public function enrollments()
     {
         return $this->hasMany(Enrollment::class);
-    }
-
-    public function activeEnrollments()
-    {
-        return $this->enrollments()->where('status', 'active');
     }
 
     // Helper methods
@@ -331,9 +351,9 @@ class Course extends Model
         return 'Ksh ' . number_format($this->price, 0);
     }
 
-    public function getEnrollmentCountAttribute()
+    public function getTitleAttribute()
     {
-        return $this->enrollments()->count();
+        return $this->course_name;
     }
 }
 ```
@@ -369,29 +389,18 @@ class EnrollmentController extends Controller
             'course_id' => 'required|exists:courses,id',
         ]);
 
+        // Check if already enrolled before starting transaction
+        $exists = Enrollment::where('student_id', $data['student_id'])
+            ->where('course_id', $data['course_id'])
+            ->exists();
+        
+        if ($exists) {
+            return response()->json(['message' => 'Already enrolled'], 422);
+        }
+
         DB::beginTransaction();
         
         try {
-            // Check for existing enrollment
-            $existingEnrollment = Enrollment::where('student_id', $data['student_id'])
-                                          ->where('course_id', $data['course_id'])
-                                          ->first();
-            
-            if ($existingEnrollment) {
-                return response()->json([
-                    'message' => 'Student is already enrolled in this course'
-                ], 422);
-            }
-
-            // Check course capacity
-            $course = Course::findOrFail($data['course_id']);
-            if ($course->max_capacity && $course->enrollment_count >= $course->max_capacity) {
-                return response()->json([
-                    'message' => 'Course has reached maximum capacity'
-                ], 422);
-            }
-
-            // Create enrollment
             $enrollment = Enrollment::create([
                 'student_id' => $data['student_id'],
                 'course_id' => $data['course_id'],
@@ -400,20 +409,14 @@ class EnrollmentController extends Controller
             ]);
 
             DB::commit();
-
-            // Fire event after successful enrollment
+            
             EnrollmentCreated::dispatch($enrollment);
-
-            return response()->json([
-                'message' => 'Enrollment successful',
-                'enrollment' => $enrollment->load(['student', 'course'])
-            ], 201);
-
+            
+            return response()->json($enrollment, 201);
+            
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json([
-                'error' => 'Enrollment failed'
-            ], 500);
+            return response()->json(['error' => 'Enrollment failed'], 500);
         }
     }
 }
@@ -500,32 +503,30 @@ class EnrollmentTest extends TestCase
 
     public function test_student_can_enroll_in_course()
     {
-        // Arrange
-        $student = Student::factory()->create();
-        $course = Course::factory()->create(['max_capacity' => 50]);
+        Event::fake();
 
-        // Act - API call to enroll student
-        $response = $this->postJson('/api/enrollments', [
+        $student = Student::factory()->create();
+        $course = Course::factory()->create();
+
+        // Create token for student
+        $token = $student->createToken('test-token')->plainTextToken;
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->postJson('/api/enrollments', [
             'student_id' => $student->id,
             'course_id' => $course->id,
         ]);
 
-        // Assert
         $response->assertStatus(201);
-        $response->assertJson([
-            'message' => 'Enrollment successful'
-        ]);
 
-        // Verify database
         $this->assertDatabaseHas('enrollments', [
             'student_id' => $student->id,
             'course_id' => $course->id,
             'status' => 'active',
         ]);
 
-        // Verify relationships
-        $this->assertTrue($student->fresh()->courses->contains($course));
-        $this->assertTrue($course->fresh()->students->contains($student));
+        Event::assertDispatched(EnrollmentCreated::class);
     }
 
     public function test_prevents_duplicate_enrollment()
