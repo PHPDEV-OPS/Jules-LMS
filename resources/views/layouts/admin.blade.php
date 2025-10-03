@@ -91,7 +91,7 @@
                             <span class="material-icons mr-3 text-sm">assignment</span>
                             Enrollments
                         </a>
-                        <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                        <a href="{{ route('admin.staff.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('admin.staff.*') ? 'bg-red-50 text-red-700 border-r-2 border-red-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                             <span class="material-icons mr-3 text-sm">admin_panel_settings</span>
                             Staff
                         </a>
@@ -100,19 +100,19 @@
                     <!-- Academic -->
                     <div class="mb-4">
                         <p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Academic</p>
-                        <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                        <a href="{{ route('admin.categories.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('admin.categories.*') ? 'bg-red-50 text-red-700 border-r-2 border-red-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                             <span class="material-icons mr-3 text-sm">category</span>
                             Categories
                         </a>
-                        <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                        <a href="{{ route('admin.assessments.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('admin.assessments.*') ? 'bg-red-50 text-red-700 border-r-2 border-red-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                             <span class="material-icons mr-3 text-sm">quiz</span>
                             Assessments
                         </a>
-                        <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                        <a href="{{ route('admin.certificates.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('admin.certificates.*') ? 'bg-red-50 text-red-700 border-r-2 border-red-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                             <span class="material-icons mr-3 text-sm">verified</span>
                             Certificates
                         </a>
-                        <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                        <a href="{{ route('admin.gradings.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('admin.gradings.*') ? 'bg-red-50 text-red-700 border-r-2 border-red-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                             <span class="material-icons mr-3 text-sm">grade</span>
                             Grading
                         </a>
@@ -121,36 +121,40 @@
                     <!-- Communication -->
                     <div class="mb-4">
                         <p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Communication</p>
-                        <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                        <a href="{{ route('admin.announcements.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('admin.announcements.*') ? 'bg-red-50 text-red-700 border-r-2 border-red-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                             <span class="material-icons mr-3 text-sm">campaign</span>
                             Announcements
                         </a>
-                        <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                        <a href="{{ route('admin.email-templates.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('admin.email-templates.*') ? 'bg-red-50 text-red-700 border-r-2 border-red-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                             <span class="material-icons mr-3 text-sm">email</span>
                             Email Templates
                         </a>
-                        <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                        <a href="{{ route('admin.notifications.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('admin.notifications.*') ? 'bg-red-50 text-red-700 border-r-2 border-red-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                             <span class="material-icons mr-3 text-sm">notifications</span>
                             Notifications
+                        </a>
+                        <a href="{{ route('admin.forums.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('admin.forums.*') ? 'bg-purple-50 text-purple-700 border-r-2 border-purple-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
+                            <span class="material-icons mr-3 text-sm">forum</span>
+                            Forums
                         </a>
                     </div>
 
                     <!-- System -->
                     <div class="mb-4">
                         <p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">System</p>
-                        <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                        <a href="{{ route('admin.system.settings') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('admin.system.settings*') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                             <span class="material-icons mr-3 text-sm">settings</span>
                             System Settings
                         </a>
-                        <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                        <a href="{{ route('admin.system.backup') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('admin.system.backup*') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                             <span class="material-icons mr-3 text-sm">backup</span>
                             Backup & Restore
                         </a>
-                        <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                        <a href="{{ route('admin.system.activity-logs') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('admin.system.activity-logs*') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                             <span class="material-icons mr-3 text-sm">history</span>
                             Activity Logs
                         </a>
-                        <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                        <a href="{{ route('admin.system.help') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('admin.system.help*') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                             <span class="material-icons mr-3 text-sm">help</span>
                             Help & Support
                         </a>

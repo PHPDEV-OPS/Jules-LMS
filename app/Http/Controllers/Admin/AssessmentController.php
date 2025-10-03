@@ -216,7 +216,7 @@ class AssessmentController extends Controller
      */
     private function calculateAverageCompletionRate()
     {
-        $assessments = Assessment::withCount(['submissions', 'course.enrollments'])->get();
+        $assessments = Assessment::with('course')->withCount(['submissions'])->get();
         
         if ($assessments->isEmpty()) return 0;
 
@@ -224,10 +224,13 @@ class AssessmentController extends Controller
         $count = 0;
 
         foreach ($assessments as $assessment) {
-            if ($assessment->course && $assessment->course->enrollments_count > 0) {
-                $rate = ($assessment->submissions_count / $assessment->course->enrollments_count) * 100;
-                $totalRate += $rate;
-                $count++;
+            if ($assessment->course) {
+                $enrollmentsCount = $assessment->course->enrollments()->count();
+                if ($enrollmentsCount > 0) {
+                    $rate = ($assessment->submissions_count / $enrollmentsCount) * 100;
+                    $totalRate += $rate;
+                    $count++;
+                }
             }
         }
 

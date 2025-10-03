@@ -63,4 +63,52 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Relationship: A user has many notifications.
+     */
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+    /**
+     * Relationship: A user has created email templates.
+     */
+    public function emailTemplates()
+    {
+        return $this->hasMany(EmailTemplate::class, 'created_by');
+    }
+
+    /**
+     * Relationship: A user has created announcements.
+     */
+    public function announcements()
+    {
+        return $this->hasMany(Announcement::class, 'created_by');
+    }
+
+    /**
+     * Relationship: A user has issued certificates.
+     */
+    public function issuedCertificates()
+    {
+        return $this->hasMany(Certificate::class, 'issued_by');
+    }
+
+    /**
+     * Relationship: A user has graded assessments.
+     */
+    public function gradings()
+    {
+        return $this->hasMany(Grading::class, 'graded_by');
+    }
+
+    /**
+     * Relationship: A user might be a student.
+     */
+    public function student()
+    {
+        return $this->hasOne(Student::class, 'email', 'email');
+    }
 }

@@ -43,6 +43,21 @@ class Enrollment extends Model
         return $this->belongsTo(Course::class);
     }
 
+    /**
+     * Relationship: An enrollment has many assessment submissions through the student.
+     */
+    public function assessmentSubmissions()
+    {
+        return $this->hasManyThrough(
+            AssessmentSubmission::class,
+            Student::class,
+            'id', // Foreign key on students table
+            'student_id', // Foreign key on assessment_submissions table
+            'student_id', // Local key on enrollments table
+            'id' // Local key on students table
+        );
+    }
+
     // Scopes
     public function scopeActive($query)
     {

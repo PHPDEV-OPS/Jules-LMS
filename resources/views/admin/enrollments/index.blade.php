@@ -196,8 +196,21 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-900">{{ $enrollment->course->title }}</div>
-                                    <div class="text-sm text-gray-500">{{ $enrollment->course->course_code }}</div>
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0">
+                                            @if($enrollment->course->image)
+                                                <img src="{{ $enrollment->course->image }}" alt="{{ $enrollment->course->title }}" class="w-10 h-10 rounded-lg object-cover">
+                                            @else
+                                                <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+                                                    <span class="material-icons text-white text-sm">{{ $enrollment->course->fallback_icon }}</span>
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="ml-3">
+                                            <div class="text-sm text-gray-900">{{ $enrollment->course->title }}</div>
+                                            <div class="text-sm text-gray-500">{{ $enrollment->course->course_code }}</div>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ $enrollment->enrolled_on ? $enrollment->enrolled_on->format('M j, Y') : 'N/A' }}

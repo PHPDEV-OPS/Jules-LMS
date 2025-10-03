@@ -73,11 +73,11 @@
                         <!-- Dashboard -->
                         <div class="mb-4">
                             <p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Dashboard</p>
-                            <a href="{{ route('student.dashboard.analytics') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('student.dashboard.analytics') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
+                            <a href="{{ route('student.dashboard') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('student.dashboard') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                                 <span class="material-icons mr-3 text-sm">dashboard</span>
                                 Overview
                             </a>
-                            <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                            <a href="{{ route('student.dashboard.analytics') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('student.dashboard.analytics') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                                 <span class="material-icons mr-3 text-sm">analytics</span>
                                 Analytics
                             </a>
@@ -86,76 +86,72 @@
                         <!-- Learning -->
                         <div class="mb-4">
                             <p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Learning</p>
-                            <a href="{{ route('courses.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('courses.*') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
+                            <a href="{{ route('student.courses.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('student.courses.*') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                                 <span class="material-icons mr-3 text-sm">school</span>
-                                All Courses
+                                My Courses
                             </a>
-                            <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                                <span class="material-icons mr-3 text-sm">bookmark</span>
-                                My Enrollments
+                            <a href="{{ route('courses.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('courses.*') && !request()->routeIs('student.courses.*') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
+                                <span class="material-icons mr-3 text-sm">explore</span>
+                                Browse All Courses
                             </a>
-                            <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                                <span class="material-icons mr-3 text-sm">schedule</span>
-                                Learning Path
-                            </a>
-                            <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                                <span class="material-icons mr-3 text-sm">verified</span>
+                            <a href="{{ route('student.certificates.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('student.certificates.*') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
+                                <span class="material-icons mr-3 text-sm">workspace_premium</span>
                                 Certificates
                             </a>
                         </div>
 
-                        <!-- Progress -->
+                        <!-- Assessments -->
                         <div class="mb-4">
-                            <p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Progress</p>
-                            <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                            <p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Assessments</p>
+                            <a href="{{ route('student.assessments.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('student.assessments.*') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                                 <span class="material-icons mr-3 text-sm">assignment</span>
-                                Assignments
+                                My Assessments
                             </a>
-                            <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                            <a href="{{ route('student.practice-tests.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('student.practice-tests.*') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                                 <span class="material-icons mr-3 text-sm">quiz</span>
-                                Quizzes & Tests
+                                Practice Tests
                             </a>
-                            <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                            <a href="{{ route('student.grades.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('student.grades.*') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                                 <span class="material-icons mr-3 text-sm">grade</span>
-                                Grades
-                            </a>
-                            <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                                <span class="material-icons mr-3 text-sm">trending_up</span>
-                                Progress Report
+                                My Grades
                             </a>
                         </div>
 
                         <!-- Communication -->
                         <div class="mb-4">
                             <p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Communication</p>
+                            <a href="{{ route('student.announcements.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('student.announcements.*') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
+                                <span class="material-icons mr-3 text-sm">campaign</span>
+                                Announcements
+                            </a>
+                            <a href="{{ route('student.notifications.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('student.notifications.*') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
+                                <span class="material-icons mr-3 text-sm">notifications</span>
+                                Notifications
+                            </a>
                             <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
                                 <span class="material-icons mr-3 text-sm">forum</span>
                                 Discussion Forums
-                            </a>
-                            <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                                <span class="material-icons mr-3 text-sm">message</span>
-                                Messages
-                            </a>
-                            <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                                <span class="material-icons mr-3 text-sm">notifications</span>
-                                Notifications
                             </a>
                         </div>
 
                         <!-- Account -->
                         <div class="mb-4">
                             <p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Account</p>
-                            <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                            <a href="{{ route('student.profile.show') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('student.profile.*') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                                 <span class="material-icons mr-3 text-sm">person</span>
                                 My Profile
                             </a>
-                            <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                            <a href="{{ route('student.grades.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('student.grades.*') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
+                                <span class="material-icons mr-3 text-sm">grade</span>
+                                My Grades
+                            </a>
+                            <a href="{{ route('student.forums.index') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('student.forums.*') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
+                                <span class="material-icons mr-3 text-sm">forum</span>
+                                Discussion Forums
+                            </a>
+                            <a href="{{ route('student.settings') }}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md {{ request()->routeIs('student.settings') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                                 <span class="material-icons mr-3 text-sm">settings</span>
                                 Settings
-                            </a>
-                            <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                                <span class="material-icons mr-3 text-sm">help</span>
-                                Help & Support
                             </a>
                         </div>
                     @elseauth('web')

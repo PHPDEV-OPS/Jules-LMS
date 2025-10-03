@@ -104,10 +104,28 @@
                 <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Top Performing Courses</h3>
                 <div class="space-y-3">
                     @foreach($analytics['performance']['top_courses']->take(5) as $course)
+                        @php
+                            $courseModel = \App\Models\Course::where('title', $course->course_name)->first();
+                        @endphp
                         <div class="flex items-center justify-between">
-                            <div class="flex-1 min-w-0">
-                                <p class="text-sm font-medium text-gray-900 truncate">{{ $course->course_name }}</p>
-                                <p class="text-xs text-gray-500">{{ $course->enrollments_count }} enrollments</p>
+                            <div class="flex items-center flex-1 min-w-0">
+                                <div class="flex-shrink-0">
+                                    @if($courseModel && $courseModel->image)
+                                        <img src="{{ $courseModel->image }}" alt="{{ $course->course_name }}" class="w-10 h-10 rounded-lg object-cover">
+                                    @elseif($courseModel)
+                                        <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+                                            <span class="material-icons text-white text-sm">{{ $courseModel->fallback_icon }}</span>
+                                        </div>
+                                    @else
+                                        <div class="w-10 h-10 rounded-lg bg-gray-300 flex items-center justify-center">
+                                            <span class="material-icons text-gray-600 text-sm">school</span>
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="ml-3 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate">{{ $course->course_name }}</p>
+                                    <p class="text-xs text-gray-500">{{ $course->enrollments_count }} enrollments</p>
+                                </div>
                             </div>
                             <div class="flex-shrink-0">
                                 <div class="w-16 bg-gray-200 rounded-full h-2">

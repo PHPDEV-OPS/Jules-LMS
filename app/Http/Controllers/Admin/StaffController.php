@@ -42,7 +42,7 @@ class StaffController extends Controller
             'total_staff' => User::whereIn('role', ['admin', 'tutor'])->count(),
             'total_admins' => User::where('role', 'admin')->count(),
             'total_tutors' => User::where('role', 'tutor')->count(),
-            'recent_staff' => User::whereIn('role', ['admin', 'tutor'])
+            'recent_additions' => User::whereIn('role', ['admin', 'tutor'])
                 ->where('created_at', '>=', now()->subDays(30))->count()
         ];
 

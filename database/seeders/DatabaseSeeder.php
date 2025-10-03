@@ -52,22 +52,22 @@ class DatabaseSeeder extends Seeder
         $additionalStudents = Student::factory(12)->create();
         $students = $students->concat($additionalStudents);
 
-        // Create cooking courses with specific course codes
+        // Create cooking courses with specific course codes and images
         $cookingCourses = [
-            ['code' => 'COOK101', 'name' => 'The Secrets of Cakes', 'credits' => 3],
-            ['code' => 'BREAD201', 'name' => 'All About Bread Baking', 'credits' => 4],
-            ['code' => 'TEA301', 'name' => 'The Ancient Art of Tea', 'credits' => 2],
-            ['code' => 'KOREAN101', 'name' => 'Cooking Korean Food', 'credits' => 3],
-            ['code' => 'BASIC101', 'name' => 'Cooking Made Simple', 'credits' => 2],
-            ['code' => 'BURGER201', 'name' => 'Cooking Burgers', 'credits' => 2],
-            ['code' => 'MEXICO301', 'name' => 'Mexican Recipes', 'credits' => 3],
-            ['code' => 'SAUCE101', 'name' => 'Master Sauce Making', 'credits' => 3],
-            ['code' => 'PASTA201', 'name' => 'Italian Pasta Mastery', 'credits' => 4],
-            ['code' => 'GRILL301', 'name' => 'Grilling Fundamentals', 'credits' => 3],
-            ['code' => 'KNIFE101', 'name' => 'Knife Skills Basics', 'credits' => 1],
-            ['code' => 'SEAFOOD201', 'name' => 'Fresh Seafood Cooking', 'credits' => 4],
-            ['code' => 'VEGAN301', 'name' => 'Plant-Based Cooking', 'credits' => 3],
-            ['code' => 'DESSERT201', 'name' => 'Dessert Artistry', 'credits' => 3],
+            ['code' => 'COOK101', 'name' => 'The Secrets of Cakes', 'credits' => 3, 'image' => 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'],
+            ['code' => 'BREAD201', 'name' => 'All About Bread Baking', 'credits' => 4, 'image' => 'https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'],
+            ['code' => 'TEA301', 'name' => 'The Ancient Art of Tea', 'credits' => 2, 'image' => 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'],
+            ['code' => 'KOREAN101', 'name' => 'Cooking Korean Food', 'credits' => 3, 'image' => 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'],
+            ['code' => 'BASIC101', 'name' => 'Cooking Made Simple', 'credits' => 2, 'image' => 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'],
+            ['code' => 'BURGER201', 'name' => 'Cooking Burgers', 'credits' => 2, 'image' => 'https://images.unsplash.com/photo-1551615593-ef5fe247e8f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'],
+            ['code' => 'MEXICO301', 'name' => 'Mexican Recipes', 'credits' => 3, 'image' => 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'],
+            ['code' => 'SAUCE101', 'name' => 'Master Sauce Making', 'credits' => 3, 'image' => 'https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'],
+            ['code' => 'PASTA201', 'name' => 'Italian Pasta Mastery', 'credits' => 4, 'image' => 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'],
+            ['code' => 'GRILL301', 'name' => 'Grilling Fundamentals', 'credits' => 3, 'image' => 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'],
+            ['code' => 'KNIFE101', 'name' => 'Knife Skills Basics', 'credits' => 1, 'image' => 'https://images.unsplash.com/photo-1567016432779-094069958ea5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'],
+            ['code' => 'SEAFOOD201', 'name' => 'Fresh Seafood Cooking', 'credits' => 4, 'image' => 'https://images.unsplash.com/photo-1544943910-4c1dc44aab44?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'],
+            ['code' => 'VEGAN301', 'name' => 'Plant-Based Cooking', 'credits' => 3, 'image' => 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'],
+            ['code' => 'DESSERT201', 'name' => 'Dessert Artistry', 'credits' => 3, 'image' => 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'],
         ];
         
         foreach ($cookingCourses as $courseData) {
@@ -76,6 +76,13 @@ class DatabaseSeeder extends Seeder
                 'course_name' => $courseData['name'],
                 'credits' => $courseData['credits'],
                 'description' => $this->getCookingDescription($courseData['name']),
+                'image_url' => $courseData['image'],
+                'instructor' => $this->getRandomInstructor(),
+                'price' => rand(49, 299),
+                'max_students' => rand(20, 100),
+                'status' => 'active',
+                'start_date' => now()->addDays(rand(1, 30)),
+                'end_date' => now()->addDays(rand(60, 120)),
             ]);
         }
 
@@ -118,5 +125,27 @@ class DatabaseSeeder extends Seeder
             'Dessert Artistry' => 'Create stunning desserts with professional techniques for pastry, chocolate work, and plating that will impress family and friends.',
             default => 'An expertly crafted cooking course designed to elevate your culinary skills with professional techniques and authentic flavors.',
         };
+    }
+
+    private function getRandomInstructor(): string
+    {
+        $instructors = [
+            'Chef Maria Rodriguez',
+            'Chef David Chen',
+            'Chef Sarah Johnson',
+            'Chef Michael Thompson',
+            'Chef Elena Vasquez',
+            'Chef Robert Kim',
+            'Chef Isabella Garcia',
+            'Chef James Wilson',
+            'Chef Anna Petrov',
+            'Chef Carlos Mendez',
+            'Chef Sophie Laurent',
+            'Chef Ahmad Hassan',
+            'Chef Grace Lee',
+            'Chef Marco Rossi'
+        ];
+        
+        return $instructors[array_rand($instructors)];
     }
 }

@@ -18,6 +18,10 @@ class Student extends Authenticatable
         'date_of_birth',
         'password',
         'role',
+        'student_id',
+        'bio',
+        'notification_preferences',
+        'privacy_settings',
     ];
 
     /**
@@ -62,5 +66,45 @@ class Student extends Authenticatable
     public function enrollments()
     {
         return $this->hasMany(Enrollment::class);
+    }
+
+    /**
+     * Relationship: A student has many certificates.
+     */
+    public function certificates()
+    {
+        return $this->hasMany(Certificate::class);
+    }
+
+    /**
+     * Relationship: A student has many grading records.
+     */
+    public function gradings()
+    {
+        return $this->hasMany(Grading::class);
+    }
+
+    /**
+     * Relationship: A student belongs to a user.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'email', 'email');
+    }
+
+    /**
+     * Relationship: A student can create many forum topics.
+     */
+    public function forumTopics()
+    {
+        return $this->hasMany(ForumTopic::class);
+    }
+
+    /**
+     * Relationship: A student can create many forum posts.
+     */
+    public function forumPosts()
+    {
+        return $this->hasMany(ForumPost::class);
     }
 }

@@ -129,9 +129,20 @@
                         <div class="space-y-4">
                             @foreach($availableCourses->take(5) as $course)
                                 <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
-                                    <div class="flex-1">
-                                        <h3 class="font-medium text-gray-900">{{ $course->title }}</h3>
-                                        <p class="text-sm text-gray-500">{{ Str::limit($course->description, 60) }}</p>
+                                    <div class="flex items-center flex-1">
+                                        <div class="flex-shrink-0">
+                                            @if($course->image)
+                                                <img src="{{ $course->image }}" alt="{{ $course->title }}" class="w-12 h-12 rounded-lg object-cover">
+                                            @else
+                                                <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+                                                    <span class="material-icons text-white text-lg">{{ $course->fallback_icon }}</span>
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="ml-4">
+                                            <h3 class="font-medium text-gray-900">{{ $course->title }}</h3>
+                                            <p class="text-sm text-gray-500">{{ Str::limit($course->description, 60) }}</p>
+                                        </div>
                                     </div>
                                     <form method="POST" action="{{ route('student.enroll') }}" class="ml-4">
                                         @csrf

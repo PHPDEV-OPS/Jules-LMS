@@ -127,12 +127,12 @@
                             <tr class="hover:bg-gray-50">
                                 <td class="px-4 py-4">
                                     <div class="flex items-center gap-3">
-                                        @if($course->image_url)
-                                            <img src="{{ Storage::url($course->image_url) }}" alt="{{ $course->course_name }}" 
+                                        @if($course->image)
+                                            <img src="{{ $course->image }}" alt="{{ $course->course_name }}" 
                                                  class="w-12 h-12 object-cover rounded-lg">
                                         @else
-                                            <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                                                <span class="material-icons text-red-600">school</span>
+                                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                                <span class="material-icons text-blue-600">{{ $course->fallback_icon }}</span>
                                             </div>
                                         @endif
                                         <div>

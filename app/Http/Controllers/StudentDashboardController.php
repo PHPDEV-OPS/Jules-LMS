@@ -4,15 +4,67 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Enrollment;
+use App\Models\Notification;
+use App\Models\Assessment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class StudentDashboardController extends Controller
 {
     /**
-     * Display the student dashboard with their enrollments
+     * Display the main student dashboard
      */
     public function dashboard()
+    {
+        $student = Auth::guard('student')->user();
+        
+        // Get enrollments data
+        $enrollments = $student->enrollments()->with('course')->get();
+        $totalEnrollments = $enrollments->count();
+        $activeEnrollments = $enrollments->where('status', 'active')->count();
+        $completedEnrollments = $enrollments->where('status', 'completed')->count();
+        
+        // Get recent enrollments (last 10)
+        $recentEnrollments = $student->enrollments()
+            ->with('course')
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
+        
+        // Get available courses for enrollment
+        $popularCourses = Course::whereDoesntHave('enrollments', function($query) use ($student) {
+            $query->where('student_id', $student->id);
+        })
+        ->withCount('enrollments')
+        ->orderBy('enrollments_count', 'desc')
+        ->take(10)
+        ->get();
+        
+        // Get unread notifications count
+        $unreadNotifications = Notification::where('student_id', $student->id)
+            ->where('is_read', false)
+            ->count();
+        
+        // Get pending assessments (mock data for now)
+        $pendingAssessments = 0; // TODO: Implement actual pending assessments logic
+        
+        return view('student.dashboard', compact(
+            'student',
+            'enrollments',
+            'totalEnrollments',
+            'activeEnrollments',
+            'completedEnrollments',
+            'recentEnrollments',
+            'popularCourses',
+            'unreadNotifications',
+            'pendingAssessments'
+        ));
+    }
+
+    /**
+     * Display the analytics view (legacy method)
+     */
+    public function analytics()
     {
         $student = Auth::guard('student')->user();
         
@@ -25,9 +77,9 @@ class StudentDashboardController extends Controller
         // Get available courses for enrollment
         $availableCourses = Course::whereDoesntHave('enrollments', function($query) use ($student) {
             $query->where('student_id', $student->id);
-        })->orderBy('course_name')->get();
+        })->orderBy('title')->get();
         
-        return view('student.dashboard', compact('enrollments', 'availableCourses', 'student'));
+        return view('student.analytics', compact('enrollments', 'availableCourses', 'student'));
     }
     
     /**

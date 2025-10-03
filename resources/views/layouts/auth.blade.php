@@ -27,8 +27,12 @@
     <div class="min-h-full flex">
         <!-- Left Panel - Background Image/Branding -->
         <div class="hidden lg:block relative flex-1">
-            <div class="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800">
-                <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+            <!-- Background Image -->
+            <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" 
+                 style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80');">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-900/70 via-blue-800/70 to-indigo-900/70">
+                <div class="absolute inset-0 bg-black/20"></div>
                 <div class="relative h-full flex items-center justify-center">
                     <div class="text-center text-white px-8">
                         <div class="mb-8">
@@ -36,37 +40,60 @@
                             <p class="text-xl opacity-90">Your journey to knowledge starts here</p>
                         </div>
                         <div class="grid grid-cols-1 gap-6 max-w-md mx-auto">
-                            <div class="flex items-center space-x-4">
+                            <!-- Quality Education Feature -->
+                            <div class="group flex items-center space-x-4 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105">
                                 <div class="flex-shrink-0">
-                                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
-                                        <span class="material-icons text-white">school</span>
+                                    <div class="w-14 h-14 bg-gradient-to-r from-blue-400 to-blue-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                                        <span class="material-icons text-white text-xl">school</span>
                                     </div>
                                 </div>
-                                <div class="text-left">
-                                    <h3 class="font-semibold">Quality Education</h3>
-                                    <p class="text-sm opacity-80">Learn from industry experts</p>
+                                <div class="text-left flex-1">
+                                    <h3 class="font-bold text-lg text-white group-hover:text-blue-100 transition-colors duration-300">Quality Education</h3>
+                                    <p class="text-sm text-blue-100 opacity-90 mt-1">Learn from industry experts with real-world experience</p>
+                                    <div class="flex items-center mt-2">
+                                        <div class="flex space-x-1">
+                                            <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                                            <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                                            <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                                            <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                                            <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                                        </div>
+                                        <span class="text-xs text-blue-100 ml-2">5.0 Rating</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="flex items-center space-x-4">
+
+                            <!-- Flexible Learning Feature -->
+                            <div class="group flex items-center space-x-4 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105">
                                 <div class="flex-shrink-0">
-                                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
-                                        <span class="material-icons text-white">devices</span>
+                                    <div class="w-14 h-14 bg-gradient-to-r from-green-400 to-green-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                                        <span class="material-icons text-white text-xl">schedule</span>
                                     </div>
                                 </div>
-                                <div class="text-left">
-                                    <h3 class="font-semibold">Flexible Learning</h3>
-                                    <p class="text-sm opacity-80">Study at your own pace</p>
+                                <div class="text-left flex-1">
+                                    <h3 class="font-bold text-lg text-white group-hover:text-green-100 transition-colors duration-300">Flexible Learning</h3>
+                                    <p class="text-sm text-blue-100 opacity-90 mt-1">Study at your own pace, anytime, anywhere</p>
+                                    <div class="flex items-center mt-2">
+                                        <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                                        <span class="text-xs text-blue-100 ml-2">24/7 Access</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="flex items-center space-x-4">
+
+                            <!-- Certificates Feature -->
+                            <div class="group flex items-center space-x-4 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105">
                                 <div class="flex-shrink-0">
-                                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
-                                        <span class="material-icons text-white">verified</span>
+                                    <div class="w-14 h-14 bg-gradient-to-r from-purple-400 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                                        <span class="material-icons text-white text-xl">verified</span>
                                     </div>
                                 </div>
-                                <div class="text-left">
-                                    <h3 class="font-semibold">Certificates</h3>
-                                    <p class="text-sm opacity-80">Get recognized credentials</p>
+                                <div class="text-left flex-1">
+                                    <h3 class="font-bold text-lg text-white group-hover:text-purple-100 transition-colors duration-300">Certificates</h3>
+                                    <p class="text-sm text-blue-100 opacity-90 mt-1">Get recognized credentials upon completion</p>
+                                    <div class="flex items-center mt-2">
+                                        <span class="text-xs bg-purple-500/30 text-purple-100 px-2 py-1 rounded-full">Verified</span>
+                                        <span class="text-xs text-blue-100 ml-2">Industry Standard</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
