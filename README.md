@@ -520,13 +520,34 @@ php artisan serve
 ### Login Credentials
 
 #### Admin Access
+The system comes with pre-configured admin access:
+
 - **Email**: admin@example.com  
 - **Password**: password123
-- **URL**: `/admin/login`
+- **Login URL**: `/admin/login`
+- **Dashboard URL**: `/admin/dashboard`
+
+#### Creating Additional Admin Users
+You can create additional admin users using Laravel Tinker:
+
+```bash
+# Create admin user via Tinker
+php artisan tinker --execute="App\Models\User::create(['name' => 'Admin User', 'email' => 'admin@example.com', 'password' => bcrypt('password123'), 'role' => 'admin']); echo 'Admin user created successfully!';"
+
+# Or create with custom details
+php artisan tinker --execute="App\Models\User::create(['name' => 'Your Name', 'email' => 'your-email@example.com', 'password' => bcrypt('your-password'), 'role' => 'admin']); echo 'Custom admin user created!';"
+```
+
+#### Available Admin Accounts
+If you've run the database seeder, you may also have these accounts:
+
+- **Email**: admin@lms.test
+- **Password**: admin123
 
 #### Student Access  
 - Students can register via `/register` or be created through admin panel
 - Default student login uses email and password
+- Student login URL: `/login`
 
 ---
 
