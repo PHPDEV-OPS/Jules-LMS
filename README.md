@@ -4,6 +4,8 @@ A comprehensive Learning Management System built with Laravel 12, featuring cour
 
 ## 🎯 System Overview
 
+
+
 This LMS implements a complete course enrollment system with the following core entities:
 - **Students**: Manage student profiles and enrollments
 - **Courses**: Create and manage educational courses  
@@ -13,6 +15,18 @@ This LMS implements a complete course enrollment system with the following core 
 - **Forums**: Student discussion boards
 
 ---
+## 🖼️ Screenshots
+
+Below are visual previews of the LMS:
+
+### Home Page
+![Home Page](images/homepage.png)
+
+### Student Dashboard
+![Student Dashboard](images/student-dashboard.png)
+
+### Admin Dashboard
+![Admin Dashboard](images/admin-dashboard.png)
 
 ### A. Migration & Model Implementation 
 
