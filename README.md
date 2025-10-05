@@ -505,31 +505,107 @@ class EnrollmentTest extends TestCase
 
 ## 🛠️ Installation & Setup
 
+# Setting Up Jules-LMS
+
+Follow these steps to set up and run the [Jules-LMS](https://github.com/PHPDEV-OPS/Jules-LMS) application locally.
+
+---
+
+## 1. Clone the Repository
+
 ```bash
-# Clone repository
-git clone [repository-url]
-cd LMS
+git clone https://github.com/PHPDEV-OPS/Jules-LMS.git
+cd Jules-LMS
+```
 
-# Install dependencies
+---
+
+## 2. Install Dependencies
+
+**Backend (PHP/Laravel):**
+```bash
 composer install
-npm install
+```
 
-# Environment setup
+**Frontend (Node.js):**
+```bash
+npm install
+```
+
+---
+
+## 3. Environment Configuration
+
+Copy the example environment file and generate an application key:
+
+```bash
 cp .env.example .env
 php artisan key:generate
+```
 
-# Database setup
+> **Note:**  
+> Edit the `.env` file as needed to set up your database connection and other environment variables.
+
+---
+
+## 4. Database Setup
+
+Run fresh migrations and seed the database:
+
+```bash
 php artisan migrate:fresh --seed
+```
 
-# Create admin user
+---
+
+## 5. Create an Admin User
+
+Run the following command to create an admin user:
+
+```bash
 php artisan tinker --execute="App\Models\User::create(['name' => 'Admin User', 'email' => 'admin@example.com', 'password' => bcrypt('password123'), 'role' => 'admin']);"
+```
 
-# Build assets
+---
+
+## 6. Build Frontend Assets
+
+```bash
 npm run build
+```
 
-# Serve application
+---
+
+## 7. Serve the Application
+
+Start the Laravel development server:
+
+```bash
 php artisan serve
 ```
+
+---
+
+## 8. Access the App
+
+Open your browser and visit [http://localhost:8000] to access Jules-LMS.
+
+---
+
+- **Node.js Version:**  
+  Make sure you are using a compatible version of Node.js as specified in `package.json`.
+
+- **Composer Version:**  
+  Ensure Composer is installed and up-to-date.
+
+---
+
+## Additional Resources
+
+- [Laravel Documentation](https://laravel.com/docs)
+- [Node.js Documentation](https://nodejs.org/en/docs/)
+- [Composer Documentation](https://getcomposer.org/doc/)
+
 
 ### Login Credentials
 
@@ -551,12 +627,6 @@ php artisan tinker --execute="App\Models\User::create(['name' => 'Admin User', '
 # Or create with custom details
 php artisan tinker --execute="App\Models\User::create(['name' => 'Your Name', 'email' => 'your-email@example.com', 'password' => bcrypt('your-password'), 'role' => 'admin']); echo 'Custom admin user created!';"
 ```
-
-#### Available Admin Accounts
-If you've run the database seeder, you may also have these accounts:
-
-- **Email**: admin@lms.test
-- **Password**: admin123
 
 #### Student Access  
 - Students can register via `/register` or be created through admin panel
